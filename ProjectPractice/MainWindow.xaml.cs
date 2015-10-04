@@ -23,7 +23,33 @@ namespace ProjectPractice
         public MainWindow()
         {
             InitializeComponent();
+            //建立快捷鍵ESC
+            InputBinding ib = new InputBinding(ApplicationCommands.Properties, new KeyGesture(Key.Escape));
+            this.InputBindings.Add(ib);
+            CommandBinding cb = new CommandBinding(ApplicationCommands.Properties);
+            cb.Executed += new ExecutedRoutedEventHandler(cb_Executed);
+            this.CommandBindings.Add(cb);
         }
+        //聽到ESC之後關程式
+        void cb_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+        //public bool CanExecute(object parameter)
+        //{
+        //    //we can only close Windows
+        //    return (parameter is Window);
+        //}
+
+        //public event EventHandler CanExecuteChanged;
+
+        //public void Execute(object parameter)
+        //{
+        //    if (this.CanExecute(parameter))
+        //    {
+        //        ((Window)parameter).Close();
+        //    }
+        //}
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             CreateButton(6, 6);
@@ -65,9 +91,9 @@ namespace ProjectPractice
                         Width = width,
                         Height = height
                     };
-                    MessageBox.Show("" + i+","+ j);
-                    Canvas.SetTop(bt, j * height + 5);
-                    Canvas.SetLeft(bt, i * width + 5);
+                    //MessageBox.Show("" + i+","+ j);
+                    //Canvas.SetTop(bt, j * height + 5);
+                    //Canvas.SetLeft(bt, i * width + 5);
                     //这两句很关键。按钮在Canvas中的定位与它自己的Left以及Top不是一个概念
 
 
