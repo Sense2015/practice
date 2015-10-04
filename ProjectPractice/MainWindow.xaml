@@ -6,7 +6,7 @@
 
     Title="Window1" Height="300" Width="300" WindowStyle="None" Topmost="True">
     <Window.Background>
-        <ImageBrush ImageSource="images/bg_defult.jpg"/>
+        <ImageBrush ImageSource="/images/bg_defult.jpg"/>
     </Window.Background>
 
     <Grid Name="gridMain">

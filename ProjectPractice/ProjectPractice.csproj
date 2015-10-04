@@ -93,6 +93,23 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\backstep.png" />
+    <Resource Include="images\backstep_hover.png" />
+    <Resource Include="images\bg_defult.jpg" />
+    <Resource Include="images\copy.png" />
+    <Resource Include="images\copy_hover.png" />
+    <Resource Include="images\detele.png" />
+    <Resource Include="images\detele_hover.png" />
+    <Resource Include="images\w_arrowdown.png" />
+    <Resource Include="images\w_arrowdown_hover.png" />
+    <Resource Include="images\w_arrowup.png" />
+    <Resource Include="images\w_arrowup_hover.png" />
+    <Resource Include="images\w_arrow_left.png" />
+    <Resource Include="images\w_arrow_left_hover.png" />
+    <Resource Include="images\w_arrow_right.png" />
+    <Resource Include="images\w_arrow_right_hover.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
