@@ -11,7 +11,6 @@
 
     <Grid Name="gridMain">
 
-        <!--切版-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
@@ -24,7 +23,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <!--按鈕們-->
+        
         <Button x:Name="x00" Grid.Column="0" Grid.Row="0" >
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
