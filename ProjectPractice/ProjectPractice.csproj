@@ -84,6 +84,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="formxy.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,6 +110,9 @@
     <Resource Include="images\w_arrow_left_hover.png" />
     <Resource Include="images\w_arrow_right.png" />
     <Resource Include="images\w_arrow_right_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="formxy.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
