@@ -116,7 +116,8 @@ namespace ProjectPractice
                     Button bt = new Button()
                     {
                         Width = width,
-                        Height = height
+                        Height = height,
+                        //Background=new Image(C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png)
                     };
 
                     //MessageBox.Show("" + i + "," + j); //test
@@ -125,7 +126,7 @@ namespace ProjectPractice
                     Canvas.SetLeft(bt, i * width + 5);
                     //这两句很关键。按钮在Canvas中的定位与它自己的Left以及Top不是一个概念
 
-
+                    
                     canvas1.Children.Add(bt);
 
 
