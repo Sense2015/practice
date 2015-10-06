@@ -52,20 +52,21 @@ namespace ProjectPractice
             sr.Close();                     // 關閉串流
             
             //建立快捷鍵ESC
+            //InputBinding ib = new InputBinding(ApplicationCommands.Properties, new KeyGesture(Key.Escape));
+            //this.InputBindings.Add(ib);
             
-            InputBinding ib = new InputBinding(ApplicationCommands.Properties, new KeyGesture(Key.Escape));
-            this.InputBindings.Add(ib);
-            
-            CommandBinding cb = new CommandBinding(ApplicationCommands.Properties);
-            cb.Executed += new ExecutedRoutedEventHandler(cb_Executed);
-            this.CommandBindings.Add(cb);
+            //CommandBinding cb = new CommandBinding(ApplicationCommands.Properties);
+            //cb.Executed += new ExecutedRoutedEventHandler(cb_Executed);
+            //this.CommandBindings.Add(cb);
             
         }
         //聽到ESC之後關程式
-        void cb_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        //void cb_Executed(object sender, ExecutedRoutedEventArgs e)
+        //{
+        //    Application.Current.Shutdown();
+        //}
+
+
         //public bool CanExecute(object parameter)
         //{
         //    //we can only close Windows
@@ -184,5 +185,15 @@ namespace ProjectPractice
             //sw.Stop();
             //Console.WriteLine("By System.Drawing.Image: {0} ms.",sw.ElapsedMilliseconds);
         }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            //MessageBox.Show(""+e.Key); 
+            if (e.Key == Key.Escape)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
     }
 }
