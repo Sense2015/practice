@@ -1,0 +1,81 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ImageBrush x:Key="BKS" ImageSource="C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png"/>
+    <ImageBrush x:Key="BKSh" ImageSource="C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep_hover.png"/>
+    <ControlTemplate x:Key="xxTemplate" TargetType="{x:Type Button}">
+        <Grid Background="{TemplateBinding Background}"/>
+    </ControlTemplate>
+    
+    <Style x:Key="BtnSty" TargetType="{x:Type Button}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background" Value="{DynamicResource BKS}"/>
+        <Setter Property="Template"  Value="{StaticResource xxTemplate}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource BKSh}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--<Style.Triggers >
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Background" Value="{StaticResource BKSh}"/>
+            </Trigger>
+        </Style.Triggers>-->
+
+        <!--<Setter Property="Template" />-->
+
+
+
+
+
+        <!--<Style.Setters>-->
+        <!--<Setter Property="Control.FontFamily" Value="Times New Roman" />
+                <Setter Property="Control.FontSize" Value="18" />
+                <Setter Property="Control.FontWeight" Value="Bold" />-->
+        <!--</Style.Setters>-->
+        <!--样式触发器-->
+        <!--<Style.Triggers>
+            --><!--获得焦点时触发--><!--
+            <Trigger Property="Control.IsFocused" Value="True">
+                --><!--<Setter Property="Background">
+                    <Setter.Value>
+                        <ImageBrush ImageSource="{DynamicResource YesStop}" Stretch="None" />
+                    </Setter.Value>
+                </Setter>--><!--
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border>
+                                <Image Name="img" Image.Source="/Images/backstep.png"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            --><!--鼠标移过时触发--><!--
+            <Trigger Property="Control.c" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border>
+                                <Image Name="img" Image.Source="/Images/backstep_hover.png"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            --><!--按钮按下时触发--><!--
+            <Trigger Property="Button.IsPressed" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}">
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red" FontFamily="Microsoft JhengHei" FontSize="12">(ˊwˋ)</TextBlock>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>-->
+    
+</ResourceDictionary>

@@ -4,11 +4,17 @@
 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
-    Title="Window1" Height="300" Width="300" WindowStyle="None" Topmost="True">
-    <Window.Background>
+    Title="Window1" Height="300" Width="300" WindowStyle="None" Topmost="True" >
+    <!--<Window.Background>
         <ImageBrush ImageSource="/images/bg_defult.jpg"/>
-    </Window.Background>
-
+    </Window.Background>-->
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Name="gridMain">
 
         <!--切版-->
@@ -25,8 +31,8 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <!--按鈕們-->
-        <Button x:Name="x00" Grid.Column="0" Grid.Row="0" >
-            <Button.Template>
+        <Button x:Name="x00" Grid.Column="0" Grid.Row="0" Style="{DynamicResource BtnSty}" >
+            <!--<Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border>
                         <Image Name="img" Image.Source="/Images/backstep.png"/>
@@ -42,7 +48,7 @@
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
-            </Button.Template>
+            </Button.Template>-->
         </Button>
         <Button x:Name="x10" Grid.Column="1" Grid.Row="0" >
             <Button.Template>
