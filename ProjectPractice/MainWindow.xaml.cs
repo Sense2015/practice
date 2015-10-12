@@ -31,29 +31,29 @@ namespace ProjectPractice
         string[] imagePaths;
         string imageFolder;
         ImageBrush berriesBrush;
+        Button bt;
+        Button[] abcBtn;
         public MainWindow()
         {
             InitializeComponent();
-
-           
         }
-
         private void CreateButton(int x, int y)
         {
 
             canvas1.Children.Clear();
-            MessageBox.Show(""+this.canvas1.ActualHeight);
+            
             double width = (this.canvas1.ActualWidth - (x + 1) * 5) / x; //按鈕寬
             double height = (this.canvas1.ActualHeight - (y + 1) * 5) / y; //按鈕高
             
             countimg = 0;
+            abcBtn= new Button[x*y];
 
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
                     //MessageBox.Show(Width + "," + width + ";" + Height + "," + height);
-                    Button bt = new Button()
+                    bt = new Button()
                     {
                         Width = width,
                         Height = height,
@@ -67,35 +67,69 @@ namespace ProjectPractice
                     }
                     
                     bt.Background = berriesBrush;
+                    bt.Click += new RoutedEventHandler(this.Button_Click);
+                    bt.MouseEnter += new MouseEventHandler(this.MouseEnterHandler);
+                    bt.MouseLeave += new MouseEventHandler(this.MouseHoverHandler);
                     
+                    bt.Name = "btn" + countimg;
+                    
+                    abcBtn[countimg] = bt;
                     Canvas.SetTop(bt, j * height + 5);  //建立間距
                     Canvas.SetLeft(bt, i * width + 5);
                     
                     canvas1.Children.Add(bt);
+                    
                 }
             }
         }
-        // 先將圖檔讀到FileStream, 再轉換為byte array。
-        private static void ToBinaryByFileStream(string imageFile)
+        private void Button_Click(object sender, System.EventArgs e)
         {
-            FileStream fs = new FileStream(imageFile, FileMode.Open);
-            byte[] buffer = new byte[fs.Length];
-            fs.Read(buffer, 0, buffer.Length);
-            fs.Close();
+            MessageBox.Show(( (Button)sender).Name );
         }
+        private void MouseEnterHandler(object sender, System.EventArgs e)
+        {
+            //switch(( (Button)sender).Name){
+            //    case "btn1":
+            //        berriesBrush = new ImageBrush();
+            //        berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep_hover.png", UriKind.Relative));
+            //        bt.Background = berriesBrush;
+                    
+            //        break;
+            //    case "btn2":
+            //        break;
 
-       
+               
+            //}
 
-        //將資料夾中的圖片"路徑"存到imagepaths
-        //private void button1_Click(object sender, RoutedEventArgs e)
+            for (int i = 1; i < countimg; i++)
+            {
+                if(abcBtn[i]==sender){
+                    berriesBrush = new ImageBrush();
+                    berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[i], UriKind.Relative));
+                    abcBtn[i].Background = berriesBrush;
+                }
+            }
+
+            //Button but = (Button)sender;
+            //MessageBox.Show(but.Name);
+            //berriesBrush = new ImageBrush();
+            //berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep_hover.png", UriKind.Relative));
+            //but.Background = berriesBrush;
+        }
+        private void MouseHoverHandler(object sender, System.EventArgs e)
+        {
+            Console.Write("  der   ");
+            berriesBrush = new ImageBrush();
+            berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png", UriKind.Relative));
+            bt.Background = berriesBrush;
+        }
+        //// 先將圖檔讀到FileStream, 再轉換為byte array。
+        //private static void ToBinaryByFileStream(string imageFile)
         //{
-        //    imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
-        //    imagePaths = Directory.GetFiles(imageFolder, "*.png");
-        //    if (0 == imagePaths.Length)
-        //    {
-        //        MessageBox.Show("No image found.");
-        //        return;
-        //    }
+        //    FileStream fs = new FileStream(imageFile, FileMode.Open);
+        //    byte[] buffer = new byte[fs.Length];
+        //    fs.Read(buffer, 0, buffer.Length);
+        //    fs.Close();
         //}
 
         private void Window_KeyUp(object sender, KeyEventArgs e)

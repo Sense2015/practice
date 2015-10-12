@@ -22,6 +22,7 @@
     <Style x:Key="Bbks" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource bks}"/>
         <Setter Property="Template"  Value="{StaticResource xxTemplate}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource bksh}"/>
