@@ -31,87 +31,16 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <!--按鈕們-->
-        <Button x:Name="x00" Grid.Column="0" Grid.Row="0" Style="{DynamicResource BtnSty}" >
-            <!--<Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border>
-                        <Image Name="img" Image.Source="/Images/backstep.png"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="img" Property="Source" Value="/images/backstep.png">
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="img" Property="Source" Value="/images/backstep_hover.png">
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>-->
-        </Button>
-        <Button x:Name="x10" Grid.Column="1" Grid.Row="0" >
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border>
-                        <Image Name="img" Image.Source="/Images/copy.png"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="img" Property="Source" Value="/images/copy.png">
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="img" Property="Source" Value="/images/copy_hover.png">
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button x:Name="x20" Grid.Column="2" Grid.Row="0">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border>
-                        <Image Name="img" Image.Source="/Images/detele.png"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="img" Property="Source" Value="/images/detele.png">
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="img" Property="Source" Value="/images/detele_hover.png">
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button x:Name="x30" Grid.Column="3" Grid.Row="0">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border>
-                        <Image Name="img" Image.Source="/Images/w_arrow_left.png"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="img" Property="Source" Value="/images/w_arrow_left.png">
-                            </Setter>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="img" Property="Source" Value="/images/w_arrow_left_hover.png">
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+        <Button x:Name="x00" Grid.Column="0" Grid.Row="0" Style="{DynamicResource Bbks}"/>
+        <Button x:Name="x10" Grid.Column="1" Grid.Row="0" Style="{DynamicResource Bcop}"/>
+        <Button x:Name="x20" Grid.Column="2" Grid.Row="0" Style="{DynamicResource Bdel}"/>
+        <Button x:Name="x30" Grid.Column="3" Grid.Row="0" />
+          
 
-        <Button x:Name="x01" Grid.Column="0" Grid.Row="1"/>
-        <Button x:Name="x11" Grid.Column="1" Grid.Row="1"/>
-        <Button x:Name="x21" Grid.Column="2" Grid.Row="1"/>
-        <Button x:Name="x31" Grid.Column="3" Grid.Row="1"/>
+        <Button x:Name="x01" Grid.Column="0" Grid.Row="1" Style="{DynamicResource Brit}"/>
+        <Button x:Name="x11" Grid.Column="1" Grid.Row="1" Style="{DynamicResource Bup}"/>
+        <Button x:Name="x21" Grid.Column="2" Grid.Row="1" Style="{DynamicResource Bdow}"/>
+        <Button x:Name="x31" Grid.Column="3" Grid.Row="1" Style="{DynamicResource Blft}"/>
 
         <Button x:Name="xx" Grid.Column="0" Grid.Row="2"/>
         <Button x:Name="x1" Grid.Column="1" Grid.Row="2"/>
