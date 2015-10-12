@@ -58,7 +58,7 @@ namespace ProjectPractice
         {
 
             canvas1.Children.Clear();
-            MessageBox.Show(""+this.canvas1.ActualWidth);
+            //MessageBox.Show(""+this.canvas1.ActualHeight);
             double width = (this.canvas1.ActualWidth - (x + 1) * 5) / x; //按鈕寬
             double height = (this.canvas1.ActualHeight - (y + 1) * 5) / y; //按鈕高
             
