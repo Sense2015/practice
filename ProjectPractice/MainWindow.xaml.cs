@@ -35,57 +35,20 @@ namespace ProjectPractice
         {
             InitializeComponent();
 
-            //讀取config
-            //string xmlDataDirectory = System.Configuration.ConfigurationManager.AppSettings.Get("y");
-            //System.Configuration.ConfigurationManager.AppSettings("y");
-            //string xlDataDirectory = ConfigurationSettings.AppSettings.Get("xmlDataDirectory");
-            //string abbb = System.Configuration.ConfigurationSettings.AppSettings.Get("y");
-            //string ooo = ConfigurationManager.AppSettings["y"];
-            //ConfigurationSettings.AppSettings.Get;
-
-            //讀txt
             StreamReader sr = new StreamReader(File.OpenRead(@"C:\Sense2015\ProjectPractice\ProjectPractice\formxy.txt"));
             while (!sr.EndOfStream) {               // 每次讀取一行，直到檔尾
                 line = sr.ReadLine();            // 讀取文字到 line 變數
                 words = line.Split(',');        //切割完存到words
             }
             sr.Close();                     // 關閉串流
-            
-            //建立快捷鍵ESC
-            //InputBinding ib = new InputBinding(ApplicationCommands.Properties, new KeyGesture(Key.Escape));
-            //this.InputBindings.Add(ib);
-            
-            //CommandBinding cb = new CommandBinding(ApplicationCommands.Properties);
-            //cb.Executed += new ExecutedRoutedEventHandler(cb_Executed);
-            //this.CommandBindings.Add(cb);
-            
-        }
-        //聽到ESC之後關程式
-        //void cb_Executed(object sender, ExecutedRoutedEventArgs e)
-        //{
-        //    Application.Current.Shutdown();
-        //}
 
-
-        //public bool CanExecute(object parameter)
-        //{
-        //    //we can only close Windows
-        //    return (parameter is Window);
-        //}
-
-        //public event EventHandler CanExecuteChanged;
-
-        //public void Execute(object parameter)
-        //{
-        //    if (this.CanExecute(parameter))
-        //    {
-        //        ((Window)parameter).Close();
-        //    }
-        //}
-        
-
-        private void button2_Click(object sender, RoutedEventArgs e)
-        {
+            imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
+            imagePaths = Directory.GetFiles(imageFolder, "*.png");
+            if (0 == imagePaths.Length)
+            {
+                MessageBox.Show("No image found.");
+                return;
+            }
             x = Convert.ToInt32(words[0]);
             y = Convert.ToInt32(words[1]);
             CreateButton(x, y);
@@ -95,7 +58,7 @@ namespace ProjectPractice
         {
 
             canvas1.Children.Clear();
-            
+            MessageBox.Show(""+this.canvas1.ActualWidth);
             double width = (this.canvas1.ActualWidth - (x + 1) * 5) / x; //按鈕寬
             double height = (this.canvas1.ActualHeight - (y + 1) * 5) / y; //按鈕高
             
@@ -105,6 +68,7 @@ namespace ProjectPractice
             {
                 for (int j = 0; j < y; j++)
                 {
+                    MessageBox.Show(Width + "," + width + ";" + Height + "," + height);
                     Button bt = new Button()
                     {
                         Width = width,
@@ -113,7 +77,6 @@ namespace ProjectPractice
 
                     if (countimg < imagePaths.Length)
                     {
-                        MessageBox.Show("" + imagePaths[countimg]);
                         berriesBrush = new ImageBrush();
                         berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[countimg], UriKind.Relative));
                         countimg++;
@@ -137,54 +100,19 @@ namespace ProjectPractice
             fs.Close();
         }
 
-        // 先將圖檔讀到Image object, 再轉換為byte array。
-        //private static void ToBinaryByImageObj(string imageFile)
-        //{
-        //    System.Drawing.Image image = System.Drawing.Image.FromFile(imageFile);
-        //    MemoryStream mr = new MemoryStream();
-        //    image.Save(mr, System.Drawing.Imaging.ImageFormat.Png);
-        //    byte[] binaryImage = mr.ToArray();
-        //    mr.Dispose();
-        //    image.Dispose();
-        //}
-        //public static void ConvertImageToBinary()
+       
 
         //將資料夾中的圖片"路徑"存到imagepaths
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            //Console.WriteLine("=== Convert the image file to the binary object. ===");
-
-            imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
-            // 測試的image數量。
-            //int sampleCount = 14;
-
-            imagePaths = Directory.GetFiles(imageFolder, "*.png");
-            if (0 == imagePaths.Length)
-            {
-                MessageBox.Show("No image found.");
-                return;
-            }
-
-            //Stopwatch sw = new Stopwatch();
-
-            //sw.Reset();
-            //sw.Start();
-            //for (int i = 0; i < sampleCount; i++)
-            //{
-            //    ToBinaryByFileStream(imagePaths[i]);
-            //}
-            //sw.Stop();
-            //Console.WriteLine("By FileStream: {0} ms.",sw.ElapsedMilliseconds);
-
-            //sw.Reset();
-            //sw.Start();
-            ////for (int i = 0; i < sampleCount; i++)
-            ////{
-            ////    ToBinaryByImageObj(imagePaths[i]);
-            ////}
-            //sw.Stop();
-            //Console.WriteLine("By System.Drawing.Image: {0} ms.",sw.ElapsedMilliseconds);
-        }
+        //private void button1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
+        //    imagePaths = Directory.GetFiles(imageFolder, "*.png");
+        //    if (0 == imagePaths.Length)
+        //    {
+        //        MessageBox.Show("No image found.");
+        //        return;
+        //    }
+        //}
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
@@ -193,6 +121,16 @@ namespace ProjectPractice
             {
                 Application.Current.Shutdown();
             }
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("b1");
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("b2");
         }
 
     }
