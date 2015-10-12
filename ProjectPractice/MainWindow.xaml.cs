@@ -35,30 +35,14 @@ namespace ProjectPractice
         {
             InitializeComponent();
 
-            StreamReader sr = new StreamReader(File.OpenRead(@"C:\Sense2015\ProjectPractice\ProjectPractice\formxy.txt"));
-            while (!sr.EndOfStream) {               // 每次讀取一行，直到檔尾
-                line = sr.ReadLine();            // 讀取文字到 line 變數
-                words = line.Split(',');        //切割完存到words
-            }
-            sr.Close();                     // 關閉串流
-
-            imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
-            imagePaths = Directory.GetFiles(imageFolder, "*.png");
-            if (0 == imagePaths.Length)
-            {
-                MessageBox.Show("No image found.");
-                return;
-            }
-            x = Convert.ToInt32(words[0]);
-            y = Convert.ToInt32(words[1]);
-            CreateButton(x, y);
+           
         }
 
         private void CreateButton(int x, int y)
         {
 
             canvas1.Children.Clear();
-            //MessageBox.Show(""+this.canvas1.ActualHeight);
+            MessageBox.Show(""+this.canvas1.ActualHeight);
             double width = (this.canvas1.ActualWidth - (x + 1) * 5) / x; //按鈕寬
             double height = (this.canvas1.ActualHeight - (y + 1) * 5) / y; //按鈕高
             
@@ -68,7 +52,7 @@ namespace ProjectPractice
             {
                 for (int j = 0; j < y; j++)
                 {
-                    MessageBox.Show(Width + "," + width + ";" + Height + "," + height);
+                    //MessageBox.Show(Width + "," + width + ";" + Height + "," + height);
                     Button bt = new Button()
                     {
                         Width = width,
@@ -131,6 +115,29 @@ namespace ProjectPractice
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("b2");
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            StreamReader sr = new StreamReader(File.OpenRead(@"C:\Sense2015\ProjectPractice\ProjectPractice\formxy.txt"));
+            while (!sr.EndOfStream)
+            {               // 每次讀取一行，直到檔尾
+                line = sr.ReadLine();            // 讀取文字到 line 變數
+                words = line.Split(',');        //切割完存到words
+            }
+            sr.Close();                     // 關閉串流
+
+            imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
+            imagePaths = Directory.GetFiles(imageFolder, "*.png");
+            if (0 == imagePaths.Length)
+            {
+                MessageBox.Show("No image found.");
+                return;
+            }
+            x = Convert.ToInt32(words[0]);
+            y = Convert.ToInt32(words[1]);
+            
+            CreateButton(x, y);
         }
 
     }
