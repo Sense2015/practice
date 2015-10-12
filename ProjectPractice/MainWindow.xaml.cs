@@ -98,7 +98,7 @@ namespace ProjectPractice
             
             double width = (this.canvas1.ActualWidth - (x + 1) * 5) / x; //按鈕寬
             double height = (this.canvas1.ActualHeight - (y + 1) * 5) / y; //按鈕高
-            
+
             countimg = 0;
 
             for (int i = 0; i < x; i++)
@@ -113,7 +113,7 @@ namespace ProjectPractice
 
                     if (countimg < imagePaths.Length)
                     {
-                        MessageBox.Show("" + imagePaths[countimg]);
+                        //MessageBox.Show("" + imagePaths[countimg]);
                         berriesBrush = new ImageBrush();
                         berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[countimg], UriKind.Relative));
                         countimg++;
