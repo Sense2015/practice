@@ -1,25 +1,43 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ImageBrush x:Key="bks" ImageSource="/images/backstep.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="bksh" ImageSource="/images/backstep_hover.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="cop" ImageSource="/images/copy.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="coph" ImageSource="/images/copy_hover.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="del" ImageSource="/images/detele.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="delh" ImageSource="/images/detele_hover.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="lft" ImageSource="/images/w_arrow_left.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="lfth" ImageSource="/images/w_arrow_left_hover.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="rit" ImageSource="/images/w_arrow_right.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="rith" ImageSource="/images/w_arrow_right_hover.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="dow" ImageSource="/images/w_arrowdown.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="dowh" ImageSource="/images/w_arrowdown_hover.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="up" ImageSource="/images/w_arrowup.png" Stretch="Uniform"/>
-    <ImageBrush x:Key="uph" ImageSource="/images/w_arrowup_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img1" ImageSource="/images/backstep.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="imgh1" ImageSource="/images/backstep_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img2" ImageSource="/images/copy.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="imgh2" ImageSource="/images/copy_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img3" ImageSource="/images/detele.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="imgh3" ImageSource="/images/detele_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img4" ImageSource="/images/w_arrow_left.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="imgh4" ImageSource="/images/w_arrow_left_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img5" ImageSource="/images/w_arrow_right.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img5h" ImageSource="/images/w_arrow_right_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img6" ImageSource="/images/w_arrowdown.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="imgh6" ImageSource="/images/w_arrowdown_hover.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="img7" ImageSource="/images/w_arrowup.png" Stretch="Uniform"/>
+    <ImageBrush x:Key="imgh7" ImageSource="/images/w_arrowup_hover.png" Stretch="Uniform"/>
+    
+    <!--<Image x:Key="imageh1" Source="/images/backstep_hover.png"/>-->
+    <Image x:Key="image1" Source="/images/backstep.png" Stretch="Uniform"/>
+    <Image x:Key="imageh1" Source="/images/backstep_hover.png" Stretch="Uniform"/>
+    <Image x:Key="image2" Source="/images/copy.png" Stretch="Uniform"/>
+    <Image x:Key="imageh2" Source="/images/copy_hover.png" Stretch="Uniform"/>
+    <Image x:Key="image3" Source="/images/detele.png" Stretch="Uniform"/>
+    <Image x:Key="imageh3" Source="/images/detele_hover.png" Stretch="Uniform"/>
+    <Image x:Key="image4" Source="/images/w_arrow_left.png" Stretch="Uniform"/>
+    <Image x:Key="imageh4" Source="/images/w_arrow_left_hover.png" Stretch="Uniform"/>
+    <Image x:Key="image5" Source="/images/w_arrow_right.png" Stretch="Uniform"/>
+    <Image x:Key="imageh5" Source="/images/w_arrow_right_hover.png" Stretch="Uniform"/>
+    <Image x:Key="image6" Source="/images/w_arrowdown.png" Stretch="Uniform"/>
+    <Image x:Key="imageh6" Source="/images/w_arrowdown_hover.png" Stretch="Uniform"/>
+    <Image x:Key="image7" Source="/images/w_arrowup.png" Stretch="Uniform"/>
+    <Image x:Key="imageh7" Source="/images/w_arrowup_hover.png" Stretch="Uniform"/>
+    
+    <Image x:Key="testImg" Source="/images/w_arrowup_hover.png"/>
 
     <ControlTemplate x:Key="xxTemplate" TargetType="{x:Type Button}">
         <Grid Background="{TemplateBinding Background}"/>
     </ControlTemplate>
 
-    <Style x:Key="Bbks" TargetType="{x:Type Button}">
+    <!--<Style x:Key="Bbks" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource bks}"/>
         <Setter Property="Template"  Value="{StaticResource xxTemplate}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -88,5 +106,5 @@
                 <Setter Property="Background" Value="{StaticResource dowh}"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

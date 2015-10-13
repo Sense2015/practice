@@ -32,59 +32,87 @@ namespace ProjectPractice
         string imageFolder;
         ImageBrush berriesBrush;
         Button bt;
-        Button[] abcBtn;
+        Image[] abcBtn;
+        Image ig;
+        BitmapImage bi3;
+        int temp;
+        Image imgh;
+
         public MainWindow()
         {
             InitializeComponent();
         }
         private void CreateButton(int x, int y)
         {
-
+            //先清除所有canvas上的物件
             canvas1.Children.Clear();
-            
+            //決定按鈕大小
             double width = (this.canvas1.ActualWidth - (x + 1) * 5) / x; //按鈕寬
             double height = (this.canvas1.ActualHeight - (y + 1) * 5) / y; //按鈕高
-            
             countimg = 0;
-            abcBtn= new Button[x*y];
+            abcBtn = new Image[x * y];
+            //abcBtn= new Button[x*y];
 
             for (int i = 0; i < x; i++)
             {
                 for (int j = 0; j < y; j++)
                 {
-                    //MessageBox.Show(Width + "," + width + ";" + Height + "," + height);
-                    bt = new Button()
+                    
+                    //bt = new Button()
+                    //{
+                    //    Width = width,
+                    //    Height = height,
+                    //};
+
+                    //if (countimg < imagePaths.Length)
+                    //{
+                    //    berriesBrush = new ImageBrush();
+                    //    berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[countimg], UriKind.Relative));
+                    //    countimg++;
+                    //}
+
+                    Image ig = new Image()
                     {
                         Width = width,
                         Height = height,
                     };
+                    //if (countimg < imagePaths.Length)
+                    //{
+                    //    //berriesBrush = new ImageBrush();
+                    //    //berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[countimg], UriKind.Relative));
+                    //    countimg++;
 
-                    if (countimg < imagePaths.Length)
-                    {
-                        berriesBrush = new ImageBrush();
-                        berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[countimg], UriKind.Relative));
-                        countimg++;
-                    }
+                    //}
+                    //ig.Source = new BitmapImage(new Uri(@"" + imagePaths[countimg], UriKind.Relative));
+
+                    //bt.Background = berriesBrush;
+                    //bt.Click += new RoutedEventHandler(this.Button_Click);
+                    //bt.MouseEnter += new MouseEventHandler(this.MouseEnterHandler);
+                    //bt.MouseLeave += new MouseEventHandler(this.MouseHoverHandler);
+                    //bt.Name = "btn" + countimg;
+
+                    //abcBtn[countimg] = bt;
+                    Canvas.SetTop(ig, j * height + 5);  //建立間距
+                    Canvas.SetLeft(ig, i * width + 5);
+
+                    ig.MouseEnter += new MouseEventHandler(this.MouseEnterHandler);
+                    ig.MouseLeave += new MouseEventHandler(this.MouseHoverHandler);
                     
-                    bt.Background = berriesBrush;
-                    bt.Click += new RoutedEventHandler(this.Button_Click);
-                    bt.MouseEnter += new MouseEventHandler(this.MouseEnterHandler);
-                    bt.MouseLeave += new MouseEventHandler(this.MouseHoverHandler);
+                    canvas1.Children.Add(ig);
                     
-                    bt.Name = "btn" + countimg;
+                    if(countimg<7)
+                    ig.Source = ((Image)TryFindResource("image"+(countimg+1).ToString())).Source;
                     
-                    abcBtn[countimg] = bt;
-                    Canvas.SetTop(bt, j * height + 5);  //建立間距
-                    Canvas.SetLeft(bt, i * width + 5);
-                    
-                    canvas1.Children.Add(bt);
-                    
+                    abcBtn[countimg] = ig;
+                    countimg++;
+
                 }
             }
+            foreach (Image im in abcBtn) im.MouseEnter += new MouseEventHandler(MouseEnterHandler);
         }
         private void Button_Click(object sender, System.EventArgs e)
         {
-            MessageBox.Show(( (Button)sender).Name );
+            MessageBox.Show(((Button)sender).Name );
         }
         private void MouseEnterHandler(object sender, System.EventArgs e)
         {
@@ -93,22 +121,36 @@ namespace ProjectPractice
             //        berriesBrush = new ImageBrush();
             //        berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep_hover.png", UriKind.Relative));
             //        bt.Background = berriesBrush;
-                    
             //        break;
             //    case "btn2":
             //        break;
-
-               
             //}
 
-            for (int i = 1; i < countimg; i++)
+            imgh = (Image)sender;
+            for (int c = 0; c < 7; c++)
             {
-                if(abcBtn[i]==sender){
-                    berriesBrush = new ImageBrush();
-                    berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[i], UriKind.Relative));
-                    abcBtn[i].Background = berriesBrush;
+                if (imgh == abcBtn[c]) { 
+                    temp = c+1;
                 }
             }
+            imgh.Source = ((Image)TryFindResource("imageh" + temp.ToString())).Source;
+            
+            //for (int i = 1; i < countimg; i++)
+            //{
+            //    if(abcBtn[i]==sender){
+            //        berriesBrush = new ImageBrush();
+            //        berriesBrush.ImageSource = new BitmapImage(new Uri(@"" + imagePaths[i], UriKind.Relative));
+            //        abcBtn[i].Background = berriesBrush;
+            //    }
+            //}
+
+            //bi3 = new BitmapImage();
+            //bi3.BeginInit();
+            //bi3.UriSource = new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png", UriKind.Relative);
+            //bi3.EndInit();
+
+            //ig.Stretch = Stretch.Uniform;
+            //ig.Source = bi3;
 
             //Button but = (Button)sender;
             //MessageBox.Show(but.Name);
@@ -118,10 +160,18 @@ namespace ProjectPractice
         }
         private void MouseHoverHandler(object sender, System.EventArgs e)
         {
-            Console.Write("  der   ");
-            berriesBrush = new ImageBrush();
-            berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png", UriKind.Relative));
-            bt.Background = berriesBrush;
+            
+            //berriesBrush = new ImageBrush();
+            //berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png", UriKind.Relative));
+            //bt.Background = berriesBrush;
+           
+            //bi3 = new BitmapImage();
+            //bi3.BeginInit();
+            //bi3.UriSource = new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png", UriKind.Relative);
+            //bi3.EndInit();
+            //ig.Stretch = Stretch.Uniform;
+            //ig.Source = bi3;
+            imgh.Source = ((Image)TryFindResource("image" + temp.ToString())).Source;
         }
         //// 先將圖檔讀到FileStream, 再轉換為byte array。
         //private static void ToBinaryByFileStream(string imageFile)
@@ -153,6 +203,7 @@ namespace ProjectPractice
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //讀取txt中的兩個值 來決定按鈕數量
             StreamReader sr = new StreamReader(File.OpenRead(@"C:\Sense2015\ProjectPractice\ProjectPractice\formxy.txt"));
             while (!sr.EndOfStream)
             {               // 每次讀取一行，直到檔尾
@@ -160,7 +211,10 @@ namespace ProjectPractice
                 words = line.Split(',');        //切割完存到words
             }
             sr.Close();                     // 關閉串流
+            x = Convert.ToInt32(words[0]);
+            y = Convert.ToInt32(words[1]);
 
+            //讀取資料夾中的圖片存到imagePaths
             imageFolder = @"C:\Sense2015\ProjectPractice\ProjectPractice\images";
             imagePaths = Directory.GetFiles(imageFolder, "*.png");
             if (0 == imagePaths.Length)
@@ -168,9 +222,7 @@ namespace ProjectPractice
                 MessageBox.Show("No image found.");
                 return;
             }
-            x = Convert.ToInt32(words[0]);
-            y = Convert.ToInt32(words[1]);
-            
+            //創button
             CreateButton(x, y);
         }
 
