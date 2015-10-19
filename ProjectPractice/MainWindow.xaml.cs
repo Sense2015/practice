@@ -15,15 +15,18 @@ using System.Windows.Shapes;
 using System.Configuration;
 using System.IO;
 using System.Diagnostics;
-using System.Drawing;
-using EyeXFramework;
-using Tobii.EyeX.Client;
+using System.Threading;
+//using System.Drawing;
+//ㄥusing EyeXFramework;
+//using Tobii.EyeX.Client;
 
 namespace ProjectPractice
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    using EyeXFramework;
+    using System;
     
     public partial class MainWindow : Window
     {
@@ -39,7 +42,53 @@ namespace ProjectPractice
         BitmapImage bi3;
         int temp;
         Image imgh;
+        Point startPoint;
+        List<Point> pointList = new List<Point>();
+        Thread dot;
+        double eyex, eyey;
+        private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            startPoint = e.GetPosition(canvas1);
+        }
+        private void Canvas_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                // 返回指针相对于Canvas的位置
+                Point point = e.GetPosition(canvas1);
 
+                if (pointList.Count == 0)
+                {
+                    // 加入起始点
+                    pointList.Add(new Point(this.startPoint.X, this.startPoint.Y));
+                }
+                else
+                {
+                    // 加入移动过程中的point
+                    pointList.Add(point);
+                }
+
+                // 去重复点
+                var disList = pointList.Distinct().ToList();
+                var count = disList.Count(); // 总点数
+                if (point != this.startPoint && this.startPoint != null)
+                {
+                    var l = new Line();
+                    
+                    l.Stroke = Brushes.Red;
+                    
+                    l.StrokeThickness = 1;
+                    if (count < 2)
+                        return;
+                    l.X1 = disList[count - 2].X;  // count-2  保证 line的起始点为点集合中的倒数第二个点。
+                    l.Y1 = disList[count - 2].Y;
+                    // 终点X,Y 为当前point的X,Y
+                    l.X2 = point.X;
+                    l.Y2 = point.Y;
+                    canvas1.Children.Add(l);
+                }
+            }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -192,17 +241,59 @@ namespace ProjectPractice
                 Application.Current.Shutdown();
             }
         }
+        private void DrawLine(Canvas c, Point s, Point e)
+        {
+            /// new a line geometry
+            LineGeometry l = new LineGeometry(s, e);
 
+            /// new a path and set its data as the geometry
+            System.Windows.Shapes.Path p =
+                new System.Windows.Shapes.Path();
+            p.Data = l;
+
+            /// add the line as a child of canvas
+            c.Children.Add(p);
+        }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             //創button
             CreateButton(x, y);
+            //Eyetracking();
+            var ellipse = new Ellipse
+            {
+                Width = 10,
+                Height = 10,
+                Cursor = Cursors.Hand,
+                Fill = new SolidColorBrush(Colors.Red),
+                Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 2
+            };
+            canvas1.Children.Add(ellipse);
+            Canvas.SetLeft(ellipse, 10);
+            Canvas.SetTop(ellipse, 10);
+            
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
             Eyetracking();
         }
+        private void DrawDot(double a, double b)
+        {
+            var ellipse = new Ellipse
+            {
+                Width = 10,
+                Height = 10,
+                Cursor = Cursors.Hand,
+                Fill = new SolidColorBrush(Colors.Red),
+                Stroke = new SolidColorBrush(Colors.Black),
+                StrokeThickness = 2
+            };
+            canvas1.Children.Add(ellipse);
+            Canvas.SetLeft(ellipse, a);
+            Canvas.SetTop(ellipse, b);
+        }
+
         private void Eyetracking()
         {
             Console.WriteLine("eyetracking");
@@ -232,6 +323,43 @@ namespace ProjectPractice
                             e.RightEye.X, e.RightEye.Y, e.RightEye.Z);
                         Console.WriteLine("Normalized : {0:0.0}, {1:0.0}, {2:0.0}                   ",
                             e.RightEyeNormalized.X, e.RightEyeNormalized.Y, e.RightEyeNormalized.Z);
+                        
+                        dot = new Thread(DrawDot(e.LeftEye.X, e.LeftEye.Y));
+                        dot.Start();
+                        
+                        //Point point = new Point(e.LeftEye.X, e.LeftEye.Y);
+
+                        //if (pointList.Count == 0)
+                        //{
+                        //    // 加入起始点
+                        //    pointList.Add(new Point(e.LeftEye.X, e.LeftEye.Y));
+                        //}
+                        //else
+                        //{
+                        //    // 加入移动过程中的point
+                        //    pointList.Add(point);
+                        //}
+
+                        //// 去重复点
+                        //var disList = pointList.Distinct().ToList();
+                        //var count = 15; // 总点数
+                        //if (point != this.startPoint && this.startPoint != null)
+                        //{
+                        //    var l = new Line();
+
+                        //    l.Stroke = Brushes.Red;
+
+                        //    l.StrokeThickness = 1;
+                        //    if (count < 2)
+                        //        return;
+                        //    l.X1 = disList[count - 2].X;  // count-2  保证 line的起始点为点集合中的倒数第二个点。
+                        //    l.Y1 = disList[count - 2].Y;
+                        //    // 终点X,Y 为当前point的X,Y
+                        //    l.X2 = point.X;
+                        //    l.Y2 = point.Y;
+                        //    canvas1.Children.Add(l);
+                        //}
+
                     };
 
                     Console.SetCursorPosition(0, 12);

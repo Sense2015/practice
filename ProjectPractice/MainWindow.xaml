@@ -25,7 +25,16 @@
     <Grid>
         <Button Height="135" HorizontalAlignment="Left" Margin="10,10,0,0" Name="button1" VerticalAlignment="Top" Width="100" Click="button1_Click">btn1</Button>
         <Button Height="135" HorizontalAlignment="Left" Margin="10,164,0,0" Name="button2" VerticalAlignment="Top" Width="100" Click="button2_Click">btn2</Button>
-        <Canvas x:Name="canvas1" Margin="128,10,10,10" />
+        <Canvas x:Name="canvas1" Width="370" Height="290" Margin="128,10,10,10" PreviewMouseLeftButtonDown="Canvas_PreviewMouseLeftButtonDown" PreviewMouseMove="Canvas_PreviewMouseMove" >
+            <Ellipse
+      Canvas.Top="50"
+      Canvas.Left="50"
+      Fill="#FFFFFF00"
+      Height="75"
+      Width="75"
+      StrokeThickness="5"
+      Stroke="#FF0000FF"/>
+        </Canvas>
     </Grid>
 
 </Window>
