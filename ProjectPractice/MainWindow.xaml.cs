@@ -44,8 +44,10 @@ namespace ProjectPractice
         Image imgh;
         Point startPoint;
         List<Point> pointList = new List<Point>();
-        Thread dot;
+        Thread dot,dot2;
         double eyex, eyey;
+        Ellipse ellipse;
+
         private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             startPoint = e.GetPosition(canvas1);
@@ -89,6 +91,7 @@ namespace ProjectPractice
                 }
             }
         }
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -211,7 +214,6 @@ namespace ProjectPractice
         }
         private void MouseHoverHandler(object sender, System.EventArgs e)
         {
-            
             //berriesBrush = new ImageBrush();
             //berriesBrush.ImageSource = new BitmapImage(new Uri(@"C:\Sense2015\ProjectPractice\ProjectPractice\images\backstep.png", UriKind.Relative));
             //bt.Background = berriesBrush;
@@ -271,27 +273,48 @@ namespace ProjectPractice
             canvas1.Children.Add(ellipse);
             Canvas.SetLeft(ellipse, 10);
             Canvas.SetTop(ellipse, 10);
-            
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            Eyetracking();
+            dot = new Thread(Eyetracking);
+            dot2 = new Thread(DrawDot);
+            dot2.SetApartmentState(ApartmentState.STA);
+            dot.Start();
+            
+            dot2.Start();
         }
-        private void DrawDot(double a, double b)
+        
+        private void DrawDot()
         {
-            var ellipse = new Ellipse
-            {
-                Width = 10,
-                Height = 10,
-                Cursor = Cursors.Hand,
-                Fill = new SolidColorBrush(Colors.Red),
-                Stroke = new SolidColorBrush(Colors.Black),
-                StrokeThickness = 2
-            };
-            canvas1.Children.Add(ellipse);
-            Canvas.SetLeft(ellipse, a);
-            Canvas.SetTop(ellipse, b);
+            ellipse = new Ellipse();
+            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+            mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
+            ellipse.Fill = mySolidColorBrush;
+            ellipse.StrokeThickness = 2;
+            ellipse.Stroke = Brushes.Black;
+            ellipse.Width = 10;
+            ellipse.Height = 10;
+            //{
+            //    Width = 10,
+            //    Height = 10,
+            //    Cursor = Cursors.Hand,
+            //    Fill = new SolidColorBrush(Colors.Red),
+            //    Stroke = new SolidColorBrush(Colors.Black),
+            //    StrokeThickness = 2
+            //};
+            //while (true)
+            //{
+                canvas1.Children.Add(ellipse);
+                this.Content = canvas1;
+                Canvas.SetLeft(ellipse, eyex);
+                Canvas.SetTop(ellipse, eyey);
+            //}
+            //while (true)
+            //{
+            //    MessageBox.Show(eyex + "," + eyey);
+            //}
+            
         }
 
         private void Eyetracking()
@@ -323,9 +346,8 @@ namespace ProjectPractice
                             e.RightEye.X, e.RightEye.Y, e.RightEye.Z);
                         Console.WriteLine("Normalized : {0:0.0}, {1:0.0}, {2:0.0}                   ",
                             e.RightEyeNormalized.X, e.RightEyeNormalized.Y, e.RightEyeNormalized.Z);
-                        
-                        dot = new Thread(DrawDot(e.LeftEye.X, e.LeftEye.Y));
-                        dot.Start();
+                        eyex = e.LeftEye.X;
+                        eyey = e.LeftEye.Y;
                         
                         //Point point = new Point(e.LeftEye.X, e.LeftEye.Y);
 
@@ -359,7 +381,6 @@ namespace ProjectPractice
                         //    l.Y2 = point.Y;
                         //    canvas1.Children.Add(l);
                         //}
-
                     };
 
                     Console.SetCursorPosition(0, 12);
@@ -378,8 +399,8 @@ namespace ProjectPractice
                     Console.In.Read();
                 }
             }
-
         }
+        [STAThread]
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //讀取txt中的兩個值 來決定按鈕數量
@@ -401,8 +422,6 @@ namespace ProjectPractice
                 MessageBox.Show("No image found.");
                 return;
             }
-            
         }
-
     }
 }
