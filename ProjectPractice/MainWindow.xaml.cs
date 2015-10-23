@@ -16,8 +16,9 @@ using System.Configuration;
 using System.IO;
 using System.Diagnostics;
 using System.Threading;
+
 //using System.Drawing;
-//ㄥusing EyeXFramework;
+//using EyeXFramework;
 //using Tobii.EyeX.Client;
 
 namespace ProjectPractice
@@ -27,7 +28,7 @@ namespace ProjectPractice
     /// </summary>
     using EyeXFramework;
     using System;
-    
+    using Tobii.EyeX.Framework;
     public partial class MainWindow : Window
     {
         string line;
@@ -47,6 +48,7 @@ namespace ProjectPractice
         Thread dot,dot2;
         double eyex, eyey;
         Ellipse ellipse;
+        System.Windows.Threading.DispatcherTimer m_timer;
 
         private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -95,6 +97,8 @@ namespace ProjectPractice
         public MainWindow()
         {
             InitializeComponent();
+           
+
         }
         private void CreateButton(int x, int y)
         {
@@ -277,16 +281,8 @@ namespace ProjectPractice
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
+            canvas1.Children.Clear();
             dot = new Thread(Eyetracking);
-            dot2 = new Thread(DrawDot);
-            dot2.SetApartmentState(ApartmentState.STA);
-            dot.Start();
-            
-            dot2.Start();
-        }
-        
-        private void DrawDot()
-        {
             ellipse = new Ellipse();
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
             mySolidColorBrush.Color = Color.FromArgb(255, 255, 255, 0);
@@ -295,6 +291,32 @@ namespace ProjectPractice
             ellipse.Stroke = Brushes.Black;
             ellipse.Width = 10;
             ellipse.Height = 10;
+            canvas1.Children.Add(ellipse);
+            dot2 = new Thread(DrawDot);
+            dot2.SetApartmentState(ApartmentState.STA);
+            dot.Start();
+
+            //dot2.Start();
+
+            m_timer = new System.Windows.Threading.DispatcherTimer();
+            m_timer.Tick += new EventHandler(testFunction);
+            m_timer.IsEnabled = true;
+        }
+
+        
+        private void testFunction(object sender,EventArgs e)
+        {
+            //if (eyex <0) return;
+            //Canvas.SetLeft(ellipse,eyex*canvas1.Width/1920);
+            //Canvas.SetTop(ellipse, eyey * canvas1.Height / 1080);
+            Canvas.SetLeft(ellipse,eyex-800);
+            Canvas.SetTop(ellipse, eyey-350);
+            Console.WriteLine("x:" + eyex.ToString() + "- y:" + eyey.ToString());
+        }
+        private void DrawDot()
+        {
+            //testFunction();
+            
             //{
             //    Width = 10,
             //    Height = 10,
@@ -305,10 +327,10 @@ namespace ProjectPractice
             //};
             //while (true)
             //{
-                canvas1.Children.Add(ellipse);
-                this.Content = canvas1;
-                Canvas.SetLeft(ellipse, eyex);
-                Canvas.SetTop(ellipse, eyey);
+                
+                //this.Content = canvas1;
+                //Canvas.SetLeft(ellipse, eyex);
+                //Canvas.SetTop(ellipse, eyey);
             //}
             //while (true)
             //{
@@ -324,30 +346,13 @@ namespace ProjectPractice
             {
                 eyeXHost.Start();
 
-                using (var stream = eyeXHost.CreateEyePositionDataStream())
+                using (var lightlyFilteredGazeDataStream = eyeXHost.CreateGazePointDataStream(GazePointDataMode.LightlyFiltered))
                 {
-                    stream.Next += (s, e) =>
+                    lightlyFilteredGazeDataStream.Next += (s, e) =>
                     {
-                        Console.SetCursorPosition(0, 0);
-
-                        // Output information about the left eye.
-                        Console.WriteLine("LEFT EYE");
-                        Console.WriteLine("========");
-                        Console.WriteLine("3D Position: ({0:0.0}, {1:0.0}, {2:0.0})                   ",
-                            e.LeftEye.X, e.LeftEye.Y, e.LeftEye.Z);
-                        Console.WriteLine("Normalized : ({0:0.0}, {1:0.0}, {2:0.0})                   ",
-                            e.LeftEyeNormalized.X, e.LeftEyeNormalized.Y, e.LeftEyeNormalized.Z);
-
-                        // Output information about the right eye.
-                        Console.WriteLine();
-                        Console.WriteLine("RIGHT EYE");
-                        Console.WriteLine("=========");
-                        Console.WriteLine("3D Position: {0:0.0}, {1:0.0}, {2:0.0}                   ",
-                            e.RightEye.X, e.RightEye.Y, e.RightEye.Z);
-                        Console.WriteLine("Normalized : {0:0.0}, {1:0.0}, {2:0.0}                   ",
-                            e.RightEyeNormalized.X, e.RightEyeNormalized.Y, e.RightEyeNormalized.Z);
-                        eyex = e.LeftEye.X;
-                        eyey = e.LeftEye.Y;
+                        //Console.WriteLine("Gaze point at ({0:0.0}, {1:0.0}) @{2:0}", e.X, e.Y, e.Timestamp);
+                        eyex = e.X;
+                        eyey = e.Y;
                         
                         //Point point = new Point(e.LeftEye.X, e.LeftEye.Y);
 
@@ -383,18 +388,18 @@ namespace ProjectPractice
                         //}
                     };
 
-                    Console.SetCursorPosition(0, 12);
-                    Console.WriteLine("");
-                    Console.WriteLine("The 3D position consists of X,Y,Z coordinates expressed in millimeters");
-                    Console.WriteLine("in relation to the center of the screen where the eye tracker is mounted.");
-                    Console.WriteLine("\n");
-                    Console.WriteLine("The normalized coordinates are expressed in relation to the track box,");
-                    Console.WriteLine("i.e. the volume in which the eye tracker is theoretically able to track eyes.");
-                    Console.WriteLine("- (0,0,0) represents the upper, right corner closest to the eye tracker.");
-                    Console.WriteLine("- (1,1,1) represents the lower, left corner furthest away from the eye tracker.");
-                    Console.WriteLine();
-                    Console.WriteLine("---------------------------------------------------------");
-                    Console.WriteLine("Listening for eye position data, press any key to exit...");
+                    //Console.SetCursorPosition(0, 12);
+                    //Console.WriteLine("");
+                    //Console.WriteLine("The 3D position consists of X,Y,Z coordinates expressed in millimeters");
+                    //Console.WriteLine("in relation to the center of the screen where the eye tracker is mounted.");
+                    //Console.WriteLine("\n");
+                    //Console.WriteLine("The normalized coordinates are expressed in relation to the track box,");
+                    //Console.WriteLine("i.e. the volume in which the eye tracker is theoretically able to track eyes.");
+                    //Console.WriteLine("- (0,0,0) represents the upper, right corner closest to the eye tracker.");
+                    //Console.WriteLine("- (1,1,1) represents the lower, left corner furthest away from the eye tracker.");
+                    //Console.WriteLine();
+                    //Console.WriteLine("---------------------------------------------------------");
+                    //Console.WriteLine("Listening for eye position data, press any key to exit...");
 
                     Console.In.Read();
                 }

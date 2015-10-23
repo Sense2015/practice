@@ -4,7 +4,7 @@
 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     
-    Title="Window1" Height="317" Width="517" WindowStyle="None" Topmost="True" KeyUp="Window_KeyUp" Loaded="Window_Loaded" >
+    Title="Window1" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" Topmost="True" KeyUp="Window_KeyUp" Loaded="Window_Loaded" >
     <Window.Background>
         <ImageBrush ImageSource="/images/bg_defult.jpg"/>
     </Window.Background>
