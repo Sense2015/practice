@@ -49,6 +49,7 @@ namespace ProjectPractice
         double eyex, eyey;
         Ellipse ellipse;
         System.Windows.Threading.DispatcherTimer m_timer;
+        EyeXHost eyeXHost;
 
         private void Canvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -262,6 +263,7 @@ namespace ProjectPractice
         }
         private void button1_Click(object sender, RoutedEventArgs e)
         {
+            eyeXHost.Dispose();
             //創button
             CreateButton(x, y);
             //Eyetracking();
@@ -310,7 +312,7 @@ namespace ProjectPractice
             //Canvas.SetLeft(ellipse,eyex*canvas1.Width/1920);
             //Canvas.SetTop(ellipse, eyey * canvas1.Height / 1080);
             Canvas.SetLeft(ellipse,eyex-800);
-            Canvas.SetTop(ellipse, eyey-350);
+            Canvas.SetTop(ellipse, eyey-380);
             Console.WriteLine("x:" + eyex.ToString() + "- y:" + eyey.ToString());
         }
         private void DrawDot()
@@ -342,7 +344,7 @@ namespace ProjectPractice
         private void Eyetracking()
         {
             Console.WriteLine("eyetracking");
-            using (var eyeXHost = new EyeXHost())
+            using (eyeXHost = new EyeXHost())
             {
                 eyeXHost.Start();
 
@@ -403,6 +405,7 @@ namespace ProjectPractice
 
                     Console.In.Read();
                 }
+                
             }
         }
         [STAThread]
